@@ -28,11 +28,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t flask-lab-app:latest .
 
-      - name: Set up Docker Compose
-        uses: docker/compose-action@v2
-        with:
-          yaml: docker-compose.yml
-
       - name: Start services with docker compose
         run: docker compose up -d --build
 
