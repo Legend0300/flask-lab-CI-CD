@@ -23,6 +23,7 @@ def data():
 			{'id': 1, 'name': 'Alice'},
 			{'id': 2, 'name': 'Bob'},
 			{'id': 3, 'name': 'Carol'},
+			{'id': 4, 'name': 'David'},
 		],
 		'count': 3
 	}
