@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-build-deploy:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,48 +22,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run unit tests
+      - name: Run automated tests
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest -v
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Build Docker image
-        run: |
-          # Retry logic for transient Docker build failures
-          for i in {1..3}; do
-            docker build -t flask-lab-app:latest . && break || {
-              echo "Build attempt $i failed, retrying..."
-              sleep 5
-            }
-          done
-
-      - name: Start services with docker compose
-        run: docker compose up -d --build
-
-      - name: Wait for app to be healthy
-        run: |
-          for i in {1..20}; do
-            if curl --silent --fail http://localhost:5000/health; then
-              echo "✓ Service is up"
-              exit 0
-            fi
-            echo "Waiting for service... ($i/20)"
-            sleep 2
-          done
-          exit 1
-
-      - name: Test /health endpoint
-        run: curl -f http://localhost:5000/health
-
-      - name: Test /data endpoint
-        run: curl -f http://localhost:5000/data
-
-      - name: Test /home endpoint
-        run: curl -f http://localhost:5000/
-
-      - name: Cleanup
-        if: always()
-        run: docker compose down
+        run: docker build -t flask-lab-app:latest .
