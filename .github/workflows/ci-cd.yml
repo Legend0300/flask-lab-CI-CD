@@ -27,5 +27,5 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest -v
 
-      - name: Build Docker image
-        run: docker build -t flask-lab-app:latest .
+    #   - name: Build Docker image
+    #     run: docker build -t flask-lab-app:latest .
