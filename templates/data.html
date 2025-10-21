@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data</title>
+  </head>
+  <body>
+    <h1>Dummy Data</h1>
+    <p>Count: {{ data.count }}</p>
+    <ul>
+      {% for item in data.items %}
+        <li>{{ item.id }} - {{ item.name }}</li>
+      {% endfor %}
+    </ul>
+    <p><a href="/">Back to home</a></p>
+  </body>
+</html>
