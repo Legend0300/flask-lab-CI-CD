@@ -11,6 +11,7 @@ def home():
 
 @app.route('/health')
 def health():
+	print("route working")
 	"""Health route - returns service status as JSON."""
 	return jsonify(status='ok'), 200
 
